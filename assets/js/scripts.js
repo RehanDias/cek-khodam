@@ -185,7 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
          { once: true }
       );
    });
-
    const captureScreenshot = async () => {
       try {
          const popupElement = document.querySelector("#popup .popup-content");
@@ -195,16 +194,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
          const popupWidth = popupElement.offsetWidth;
          const popupHeight = popupElement.offsetHeight;
-         const backgroundImg = "assets/img/bg.jpg";
 
          const canvas = await html2canvas(popupElement, {
-            scale: 3,
+            backgroundColor: "#ffffff",
+            scale: 4,
             width: popupWidth,
             height: popupHeight,
             logging: false,
             allowTaint: true,
             useCORS: true,
-            background: backgroundImg,
+            quality: 1.0,
          });
 
          return canvas.toDataURL("image/png");
