@@ -197,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
          const canvas = await html2canvas(popupElement, {
             backgroundColor: null,
+            scale: 3,
             width: popupWidth,
             height: popupElement.scrollHeight,
             logging: false,
