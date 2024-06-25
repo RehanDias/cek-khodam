@@ -107,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
    const nameInput = document.getElementById("name");
    const generateBtn = document.getElementById("generateBtn");
    const popup = document.getElementById("popup");
-   const popupContent = document.getElementById("popupContent");
    const closePopup = document.getElementById("closePopup");
    const shareXBtn = document.getElementById("shareXBtn");
    const shareWhatsAppBtn = document.getElementById("shareWhatsAppBtn");
@@ -186,12 +185,12 @@ document.addEventListener("DOMContentLoaded", () => {
          }
          const canvas = await html2canvas(popupElement, {
             backgroundColor: null,
-            scale: 2,
+            scale: 3,
+            width: popupElement.scrollWidth,
+            height: popupElement.scrollHeight,
             logging: false,
             allowTaint: true,
             useCORS: true,
-            width: popupElement.offsetWidth,
-            height: popupElement.offsetHeight,
          });
          return canvas.toDataURL("image/png");
       } catch (error) {
