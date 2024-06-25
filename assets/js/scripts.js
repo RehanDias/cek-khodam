@@ -193,23 +193,16 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
-         // Tambahkan kelas sementara untuk mengubah latar belakang
-         popupElement.classList.add("screenshot-background");
-
          const popupWidth = popupElement.getBoundingClientRect().width;
 
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: null, // Atur latar belakang menjadi transparan
-            scale: 2,
+            backgroundColor: null,
             width: popupWidth,
             height: popupElement.scrollHeight,
             logging: false,
             allowTaint: true,
             useCORS: true,
          });
-
-         // Hapus kelas sementara setelah mengambil tangkapan layar
-         popupElement.classList.remove("screenshot-background");
 
          return canvas.toDataURL("image/png");
       } catch (error) {

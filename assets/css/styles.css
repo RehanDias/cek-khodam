@@ -64,37 +64,7 @@ body {
    align-items: center;
    min-height: 300px;
 }
-.screenshot-background {
-   /* Menggunakan gambar bg.jpg sebagai latar belakang */
-   background-image: url('assets/image/bg.jpg');
-   /* Properti latar belakang lainnya untuk mempertahankan efek glassmorphism */
-   background-color: rgba(255, 255, 255, 0.1);
-   /* Efek blur untuk mempertahankan glassmorphism */
-   backdrop-filter: blur(10px);
-   -webkit-backdrop-filter: blur(10px);
-   /* Bayangan untuk menyoroti elemen */
-   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-   /* Rounding elemen */
-   border-radius: 20px;
-   /* Padding untuk konten */
-   padding: 30px;
-   /* Atur warna teks */
-   color: #e0e0e0;
-   /* Atur ukuran teks */
-   font-size: 1.25rem;
-   /* Atur berat teks */
-   font-weight: bold;
-   /* Atur teks menjadi tengah */
-   text-align: center;
-   /* Atur fleksibilitas elemen */
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   /* Set ketinggian minimal */
-   min-height: 300px;
-}
-   
+
 .button {
    display: flex;
    align-items: center;
