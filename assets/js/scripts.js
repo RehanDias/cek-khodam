@@ -212,12 +212,12 @@ document.addEventListener("DOMContentLoaded", () => {
             width: "auto",
             height: "auto",
             position: "static",
-            background: "transparent", // Make sure the background is transparent
+            background: "#402E7A", // Set background to gray
          });
 
          // Capture screenshot
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: null, // Transparent background
+            backgroundColor: "#402E7A", // Ensure background is gray
             logging: false,
             allowTaint: true,
             useCORS: true,
@@ -241,23 +241,19 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Failed to capture screenshot");
          }
 
+         // Create a new canvas with padding
          const paddedCanvas = document.createElement("canvas");
          const ctx = paddedCanvas.getContext("2d");
-         const padding = 20;
+         const padding = 20; // Adjust this value to change the padding
 
          paddedCanvas.width = canvas.width + padding * 2;
          paddedCanvas.height = canvas.height + padding * 2;
 
-         const bgImage = new Image();
-         bgImage.src = "../assets/image/bg.jpg";
+         // Fill the background with gray
+         ctx.fillStyle = "#402E7A";
+         ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
 
-         await new Promise((resolve, reject) => {
-            bgImage.onload = resolve;
-            bgImage.onerror = reject;
-         });
-
-         ctx.drawImage(bgImage, 0, 0, paddedCanvas.width, paddedCanvas.height);
-
+         // Draw the original canvas onto the new one with padding
          ctx.drawImage(canvas, padding, padding);
 
          const link = document.createElement("a");
