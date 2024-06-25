@@ -193,23 +193,33 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
-         const originalBackdropFilter = popupElement.style.backdropFilter;
-         popupElement.style.backdropFilter = "none";
+         const originalStyles = {
+            background: popupElement.style.background,
+            backdropFilter: popupElement.style.backdropFilter,
+            boxShadow: popupElement.style.boxShadow,
+            border: popupElement.style.border,
+         };
 
-         const scaleFactor = 3;
+         popupElement.style.background = "rgba(69, 71, 75, 0.9)";
+         popupElement.style.backdropFilter = "none";
+         popupElement.style.boxShadow = "none";
+         popupElement.style.border = "none";
+
+         const scaleFactor = 4;
 
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: "#45474B",
+            backgroundColor: null,
             scale: scaleFactor,
-            logging: true,
+            logging: false,
             allowTaint: true,
             useCORS: true,
-            quality: 1.0,
+            width: popupElement.offsetWidth * scaleFactor,
+            height: popupElement.offsetHeight * scaleFactor,
          });
 
-         popupElement.style.backdropFilter = originalBackdropFilter;
+         Object.assign(popupElement.style, originalStyles);
 
-         return canvas.toDataURL("image/png");
+         return canvas.toDataURL("image/png", 1.0);
       } catch (error) {
          console.error("Error capturing screenshot:", error);
          return null;
