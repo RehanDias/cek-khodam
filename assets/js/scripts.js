@@ -193,10 +193,13 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
+         // Tambahkan kelas sementara untuk mengubah latar belakang
+         popupElement.classList.add("screenshot-background");
+
          const popupWidth = popupElement.getBoundingClientRect().width;
 
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: null,
+            backgroundColor: null, // Atur latar belakang menjadi transparan
             scale: 2,
             width: popupWidth,
             height: popupElement.scrollHeight,
@@ -205,12 +208,16 @@ document.addEventListener("DOMContentLoaded", () => {
             useCORS: true,
          });
 
+         // Hapus kelas sementara setelah mengambil tangkapan layar
+         popupElement.classList.remove("screenshot-background");
+
          return canvas.toDataURL("image/png");
       } catch (error) {
          console.error("Error capturing screenshot:", error);
          return null;
       }
    };
+
    const indexUrl = window.location.href;
    const shareX = async () => {
       const shareText = `${document.getElementById("khodamName").textContent} ${
