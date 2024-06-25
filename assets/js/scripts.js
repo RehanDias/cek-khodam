@@ -183,15 +183,19 @@ document.addEventListener("DOMContentLoaded", () => {
          if (!popupElement) {
             throw new Error("Element not found.");
          }
+
+         const popupWidth = popupElement.getBoundingClientRect().width;
+
          const canvas = await html2canvas(popupElement, {
             backgroundColor: null,
-            scale: 3,
-            width: popupElement.scrollWidth,
+            scale: 2,
+            width: popupWidth,
             height: popupElement.scrollHeight,
             logging: false,
             allowTaint: true,
             useCORS: true,
          });
+
          return canvas.toDataURL("image/png");
       } catch (error) {
          console.error("Error capturing screenshot:", error);
