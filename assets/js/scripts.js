@@ -198,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
          const backgroundImg = "assets/img/bg.jpg";
 
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: null,
             scale: 3,
             width: popupWidth,
             height: popupHeight,
