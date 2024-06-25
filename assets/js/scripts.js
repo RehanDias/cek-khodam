@@ -193,36 +193,60 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
+         // Save original styles
          const originalStyles = {
             background: popupElement.style.background,
             backdropFilter: popupElement.style.backdropFilter,
             boxShadow: popupElement.style.boxShadow,
             border: popupElement.style.border,
+            width: popupElement.style.width,
+            height: popupElement.style.height,
+            position: popupElement.style.position,
          };
 
-         popupElement.style.background = "rgba(69, 71, 75, 0.9)";
-         popupElement.style.backdropFilter = "none";
-         popupElement.style.boxShadow = "none";
-         popupElement.style.border = "none";
+         // Set styles for screenshot
+         Object.assign(popupElement.style, {
+            backdropFilter: "none",
+            boxShadow: "none",
+            border: "none",
+            width: "auto",
+            height: "auto",
+            position: "static",
+         });
 
-         const scaleFactor = 4;
-
+         // Capture screenshot
          const canvas = await html2canvas(popupElement, {
             backgroundColor: null,
-            scale: scaleFactor,
             logging: false,
             allowTaint: true,
             useCORS: true,
-            width: popupElement.offsetWidth * scaleFactor,
-            height: popupElement.offsetHeight * scaleFactor,
+            scale: 2, // Adjusted scale factor
          });
 
+         // Restore original styles
          Object.assign(popupElement.style, originalStyles);
 
          return canvas.toDataURL("image/png", 1.0);
       } catch (error) {
          console.error("Error capturing screenshot:", error);
          return null;
+      }
+   };
+
+   const downloadImage = async () => {
+      try {
+         const screenshot = await captureScreenshot();
+         if (!screenshot) {
+            throw new Error("Failed to capture screenshot");
+         }
+
+         const link = document.createElement("a");
+         link.href = screenshot;
+         link.download = "khodam.png";
+         link.click();
+      } catch (error) {
+         console.error("Error downloading image:", error);
+         alert("Failed to download image. Please try again.");
       }
    };
 
@@ -245,24 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
          shareText
       )}`;
       window.open(whatsappUrl, "_blank");
-   };
-
-   const downloadImage = async () => {
-      try {
-         const screenshot = await captureScreenshot();
-         if (!screenshot) {
-            throw new Error("Failed to capture screenshot");
-         }
-         const downloadLink = document.createElement("a");
-         downloadLink.href = screenshot;
-         downloadLink.download = "khodam.png";
-         document.body.appendChild(downloadLink);
-         downloadLink.click();
-         document.body.removeChild(downloadLink);
-      } catch (error) {
-         console.error("Error downloading image:", error);
-         alert("Failed to download image. Please try again.");
-      }
    };
 
    shareXBtn.addEventListener("click", shareX);
