@@ -216,17 +216,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
          // Capture screenshot
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: null,
+            backgroundColor: "#808080", // Set background to gray
             logging: false,
             allowTaint: true,
             useCORS: true,
-            scale: 2, // Adjusted scale factor
+            scale: 2,
          });
 
          // Restore original styles
          Object.assign(popupElement.style, originalStyles);
 
-         return canvas.toDataURL("image/png", 1.0);
+         return canvas;
       } catch (error) {
          console.error("Error capturing screenshot:", error);
          return null;
@@ -235,13 +235,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
    const downloadImage = async () => {
       try {
-         const screenshot = await captureScreenshot();
-         if (!screenshot) {
+         const canvas = await captureScreenshot();
+         if (!canvas) {
             throw new Error("Failed to capture screenshot");
          }
 
+         const paddedCanvas = document.createElement("canvas");
+         const ctx = paddedCanvas.getContext("2d");
+         const padding = 20;
+         paddedCanvas.width = canvas.width + padding * 2;
+         paddedCanvas.height = canvas.height + padding * 2;
+
+         ctx.fillStyle = "#808080";
+         ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+         ctx.drawImage(canvas, padding, padding);
+
          const link = document.createElement("a");
-         link.href = screenshot;
+         link.href = paddedCanvas.toDataURL("image/png");
          link.download = "khodam.png";
          link.click();
       } catch (error) {
