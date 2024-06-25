@@ -1,0 +1,154 @@
+  body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+         }
+         .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            color: #fff;
+         }
+         .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+         }
+         @keyframes fadeIn {
+            from {
+               opacity: 0;
+               transform: translateY(-20px);
+            }
+            to {
+               opacity: 1;
+               transform: translateY(0);
+            }
+         }
+         .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+         }
+         @keyframes spin {
+            0% {
+               transform: rotate(0deg);
+            }
+            100% {
+               transform: rotate(360deg);
+            }
+         }
+         .popup-content {
+            background: linear-gradient(
+               135deg,
+               rgba(255, 255, 255, 0.1),
+               rgba(255, 255, 255, 0.2)
+            );
+            color: #e0e0e0;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-top: 20px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+         }
+         .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-size: 1rem;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 150px; /* Fixed width for all buttons */
+            height: 50px; /* Fixed height for all buttons */
+            text-align: center;
+         }
+
+         .button:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+         }
+
+         .x {
+            background-color: #000000;
+         }
+
+         .whatsapp {
+            background-color: #25d366;
+         }
+
+         .download {
+            background-color: #4a148c;
+         }
+
+         .close {
+            background-color: #d32f2f;
+         }
+
+         /* Ensure grid layout handles button spacing uniformly */
+         .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+         }
+
+         #khodamName {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+         }
+         #khodamMainName {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #ffd700;
+         }
+         #khodamDescription {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+         }
+         .khodam-details {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            margin-top: 1rem;
+         }
+         .khodam-strength {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #e0e0e0;
+         }
+         .khodam-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+         }
+         @keyframes popIn {
+            0% {
+               transform: scale(0.5);
+               opacity: 0;
+            }
+            100% {
+               transform: scale(1);
+               opacity: 1;
+            }
+         }
+         .pop-in {
+            animation: popIn 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48);
+         }
