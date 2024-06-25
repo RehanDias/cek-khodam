@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "Singa Api": "Penjaga yang kuat dengan semangat berapi-api.",
       "Buto Ijo": "Penjaga yang memiliki kekuatan besar dan menakutkan.",
       "Wesi Kuning": "Penjaga yang kuat dan tak tergoyahkan.",
-      "Merah Delima": "Penjaga yang penuh semangat dan vitalitas.",
       "Singo Barong": "Penjaga yang kuat dan berwibawa.",
       "Keris Semar Mesem": "Penjaga dengan kekuatan magis.",
       "Idu Geni Sabdo Dadi": "Penjaga dengan kekuatan api.",
@@ -174,7 +173,17 @@ document.addEventListener("DOMContentLoaded", () => {
    generateBtn.addEventListener("click", handleGenerateClick);
 
    closePopup.addEventListener("click", () => {
-      popup.classList.add("hidden");
+      popup.classList.add("fade-out");
+
+      popup.addEventListener(
+         "transitionend",
+         () => {
+            popup.classList.add("hidden");
+
+            popup.classList.remove("fade-out");
+         },
+         { once: true }
+      );
    });
 
    const captureScreenshot = async () => {
@@ -202,21 +211,23 @@ document.addEventListener("DOMContentLoaded", () => {
          return null;
       }
    };
-
+   const indexUrl = window.location.href;
    const shareX = async () => {
+      const shareText = `${document.getElementById("khodamName").textContent} ${
+         document.getElementById("khodamDescription").textContent
+      }\n${indexUrl}`;
       const xUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(
-         document.getElementById("khodamName").textContent +
-            " " +
-            document.getElementById("khodamDescription").textContent
+         shareText
       )}`;
       window.open(xUrl, "_blank");
    };
 
    const shareWhatsApp = () => {
+      const shareText = `${document.getElementById("khodamName").textContent} ${
+         document.getElementById("khodamDescription").textContent
+      }\n${indexUrl}`;
       const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(
-         document.getElementById("khodamName").textContent +
-            " " +
-            document.getElementById("khodamDescription").textContent
+         shareText
       )}`;
       window.open(whatsappUrl, "_blank");
    };
