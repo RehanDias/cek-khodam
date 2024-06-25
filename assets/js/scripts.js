@@ -193,7 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
-         // Save original styles
          const originalStyles = {
             background: popupElement.style.background,
             backdropFilter: popupElement.style.backdropFilter,
@@ -204,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
             position: popupElement.style.position,
          };
 
-         // Set styles for screenshot
          Object.assign(popupElement.style, {
             backdropFilter: "none",
             boxShadow: "none",
@@ -212,19 +210,19 @@ document.addEventListener("DOMContentLoaded", () => {
             width: "auto",
             height: "auto",
             position: "static",
-            background: "transparent", // Make sure the background is transparent
+            background: "url('./assets/image/bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 90%",
          });
 
-         // Capture screenshot
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: null, // Transparent background
+            backgroundColor: null,
             logging: false,
             allowTaint: true,
             useCORS: true,
             scale: 2,
          });
 
-         // Restore original styles
          Object.assign(popupElement.style, originalStyles);
 
          return canvas;
@@ -241,39 +239,34 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Failed to capture screenshot");
          }
 
-         // Create a new canvas with padding
          const paddedCanvas = document.createElement("canvas");
          const ctx = paddedCanvas.getContext("2d");
-         const padding = 20; // Adjust this value to change the padding
+         const padding = 20;
 
          paddedCanvas.width = canvas.width + padding * 2;
          paddedCanvas.height = canvas.height + padding * 2;
 
-         // Load the background image
-         const bgImage = new Image();
-         bgImage.src = "./assets/image/bg.jpg";
-
-         // Wait for the background image to load
-         await new Promise((resolve, reject) => {
-            bgImage.onload = resolve;
-            bgImage.onerror = reject;
-         });
-
-         // Draw the background image
-         ctx.drawImage(bgImage, 0, 0, paddedCanvas.width, paddedCanvas.height);
-
-         // Draw the original canvas onto the new one with padding
          ctx.drawImage(canvas, padding, padding);
+
+         const timestamp = new Date();
+         timestamp.setHours(timestamp.getHours() + 7);
+         const formattedTimestamp = timestamp
+            .toISOString()
+            .replace(/[-:]/g, "")
+            .replace("T", "_")
+            .split(".")[0];
+         const fileName = `rehandias.github.io/cek-khodam-${formattedTimestamp}.png`;
 
          const link = document.createElement("a");
          link.href = paddedCanvas.toDataURL("image/png");
-         link.download = "khodam.png";
+         link.download = fileName;
          link.click();
       } catch (error) {
          console.error("Error downloading image:", error);
          alert("Failed to download image. Please try again.");
       }
    };
+
    const indexUrl = window.location.href;
    const shareX = async () => {
       const shareText = `${document.getElementById("khodamName").textContent} ${
