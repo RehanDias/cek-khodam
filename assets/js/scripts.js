@@ -212,12 +212,12 @@ document.addEventListener("DOMContentLoaded", () => {
             width: "auto",
             height: "auto",
             position: "static",
-            background: "#402E7A", // Set background to gray
+            background: "transparent", // Make sure the background is transparent
          });
 
          // Capture screenshot
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: "#402E7A", // Ensure background is gray
+            backgroundColor: null, // Transparent background
             logging: false,
             allowTaint: true,
             useCORS: true,
@@ -249,9 +249,18 @@ document.addEventListener("DOMContentLoaded", () => {
          paddedCanvas.width = canvas.width + padding * 2;
          paddedCanvas.height = canvas.height + padding * 2;
 
-         // Fill the background with gray
-         ctx.fillStyle = "#402E7A";
-         ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+         // Load the background image
+         const bgImage = new Image();
+         bgImage.src = "./assets/image/bg.jpg";
+
+         // Wait for the background image to load
+         await new Promise((resolve, reject) => {
+            bgImage.onload = resolve;
+            bgImage.onerror = reject;
+         });
+
+         // Draw the background image
+         ctx.drawImage(bgImage, 0, 0, paddedCanvas.width, paddedCanvas.height);
 
          // Draw the original canvas onto the new one with padding
          ctx.drawImage(canvas, padding, padding);
@@ -265,7 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
          alert("Failed to download image. Please try again.");
       }
    };
-
    const indexUrl = window.location.href;
    const shareX = async () => {
       const shareText = `${document.getElementById("khodamName").textContent} ${
