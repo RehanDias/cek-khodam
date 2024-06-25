@@ -193,16 +193,19 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
-         const popupWidth = popupElement.getBoundingClientRect().width;
+         const popupWidth = popupElement.offsetWidth;
+         const popupHeight = popupElement.offsetHeight;
+         const backgroundImg = "assets/img/bg.jpg";
 
          const canvas = await html2canvas(popupElement, {
             backgroundColor: null,
             scale: 3,
             width: popupWidth,
-            height: popupElement.scrollHeight,
+            height: popupHeight,
             logging: false,
             allowTaint: true,
             useCORS: true,
+            background: backgroundImg,
          });
 
          return canvas.toDataURL("image/png");
