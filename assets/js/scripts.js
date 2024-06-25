@@ -212,11 +212,12 @@ document.addEventListener("DOMContentLoaded", () => {
             width: "auto",
             height: "auto",
             position: "static",
+            background: "#808080", // Set background to gray
          });
 
          // Capture screenshot
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: "#808080", // Set background to gray
+            backgroundColor: "#808080", // Ensure background is gray
             logging: false,
             allowTaint: true,
             useCORS: true,
@@ -240,14 +241,19 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Failed to capture screenshot");
          }
 
+         // Create a new canvas with padding
          const paddedCanvas = document.createElement("canvas");
          const ctx = paddedCanvas.getContext("2d");
-         const padding = 20;
+         const padding = 20; // Adjust this value to change the padding
+
          paddedCanvas.width = canvas.width + padding * 2;
          paddedCanvas.height = canvas.height + padding * 2;
 
+         // Fill the background with gray
          ctx.fillStyle = "#808080";
          ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+
+         // Draw the original canvas onto the new one with padding
          ctx.drawImage(canvas, padding, padding);
 
          const link = document.createElement("a");
