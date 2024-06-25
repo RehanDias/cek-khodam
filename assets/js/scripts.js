@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
          { once: true }
       );
    });
+
    const captureScreenshot = async () => {
       try {
          const popupElement = document.querySelector("#popup .popup-content");
@@ -192,19 +193,21 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Element not found.");
          }
 
-         const popupWidth = popupElement.offsetWidth;
-         const popupHeight = popupElement.offsetHeight;
+         const originalBackdropFilter = popupElement.style.backdropFilter;
+         popupElement.style.backdropFilter = "none";
+
+         const scaleFactor = 3;
 
          const canvas = await html2canvas(popupElement, {
-            backgroundColor: "#ffffff",
-            scale: 4,
-            width: popupWidth,
-            height: popupHeight,
-            logging: false,
+            backgroundColor: "#45474B",
+            scale: scaleFactor,
+            logging: true,
             allowTaint: true,
             useCORS: true,
             quality: 1.0,
          });
+
+         popupElement.style.backdropFilter = originalBackdropFilter;
 
          return canvas.toDataURL("image/png");
       } catch (error) {
